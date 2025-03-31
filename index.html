@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Portfolio</title>
+    <meta name="description" content="Portfolio de Renil Danger - Développeur Web & Designer basé à Delmas, Haïti">
+    <title>Portfolio de Renil Danger</title>
+    <!-- Ajout de FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Ajout de SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Ajout d'EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         /* Variables CSS */
         :root {
@@ -30,6 +37,45 @@
             background-color: var(--background);
             line-height: 1.6;
             scroll-behavior: smooth;
+        }
+        
+        /* Styles pour la section expérience */
+        .about-experience {
+            margin-bottom: 2rem;
+        }
+        
+        .experience-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .experience-item h4 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .experience-item .date {
+            font-style: italic;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        
+        .experience-item ul {
+            padding-left: 1.5rem;
+        }
+        
+        .experience-item li {
+            margin-bottom: 0.5rem;
+        }
+        
+        body.dark-mode .experience-item {
+            border-bottom-color: #3d3d3d;
+        }
+        
+        body.dark-mode .experience-item .date {
+            color: #aaa;
         }
 
         /* Navigation */
@@ -290,11 +336,18 @@
             align-items: center;
             opacity: 0;
             transition: var(--transition);
+            text-align: center;
+            padding: 1rem;
         }
 
         .portfolio-overlay h3 {
             color: white;
             margin-bottom: 1rem;
+        }
+        
+        .portfolio-overlay p {
+            color: var(--secondary-color);
+            font-weight: 500;
         }
 
         .portfolio-overlay a {
@@ -315,7 +368,7 @@
             transform: scale(1.1);
         }
 
-        /* Contact Section */
+        /* Formulaire de contact */
         .contact-form {
             max-width: 700px;
             margin: 0 auto;
@@ -356,6 +409,28 @@
             min-height: 150px;
         }
 
+        #form-status {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .success-message {
+            background-color: #ccf381;
+            color: #4831d4;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .error-message {
+            background-color: #ff6b6b;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
         /* Footer */
         footer {
             background-color: var(--dark-background);
@@ -380,6 +455,24 @@
         .social-links a:hover {
             color: var(--secondary-color);
             transform: translateY(-5px);
+        }
+        
+        .footer-contact {
+            margin: 1rem 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-contact i {
+            color: var(--secondary-color);
         }
 
         .copyright {
@@ -534,10 +627,11 @@
         <ul class="nav-links">
             <li><a href="#accueil">Accueil</a></li>
             <li><a href="#apropos">À propos</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#portfolio">Compétences</a></li>
+            <li><a href="#documents">Documents</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <div class="burger">
+        <div class="burger" aria-label="Menu de navigation">
             <div class="line1"></div>
             <div class="line2"></div>
             <div class="line3"></div>
@@ -561,40 +655,45 @@
         </div>
         <div class="about-content">
             <div class="about-image">
+                <!-- Utilisation d'une image placeholder si l'image n'est pas disponible -->
                 <img src="images/profile.jpg" alt="Photo de profil">
             </div>
             <div class="about-text">
                 <h3>Qui suis-je ?</h3>
-                <p>Je suis un développeur web passionné avec plus de 5 ans d'expérience dans la création de sites web et
-                    d'applications. J'aime résoudre des problèmes complexes et transformer des idées en expériences
-                    numériques élégantes.</p>
-                <p>Basé à Paris, je travaille avec des clients du monde entier pour créer des solutions digitales sur mesure
-                    qui répondent à leurs besoins spécifiques.</p>
+                <p>Développeur expérimenté basé à Delmas en Haïti, avec des compétences avancées couvrant presque toutes les étapes du cycle de vie d'un logiciel, de l'analyse des besoins à la mise en production et la maintenance.</p>
+                <p>Diplômé en Sciences Informatiques (Réseaux et Télécommunications) de l'Université INUKA et actuellement en formation Technology BS à Brigham Young University (BYU), j'ai développé une expertise solide dans la création d'applications web et la gestion de bases de données.</p>
+                <p>Mon parcours professionnel inclut des expériences en tant qu'Analyste Programmeur, Officier Maintien de base de données, ainsi que Professeur de programmation Java et Formateur en informatique bureautique. Cette diversité d'expériences m'a permis de développer des compétences techniques solides et une excellente capacité à transmettre mes connaissances.</p>
     
                 <div class="skills">
                     <h3>Mes compétences</h3>
                     <div class="skill-progress">
-                        <p><span>HTML/CSS</span><span>95%</span></p>
+                        <p><span>HTML/CSS</span><span>90%</span></p>
                         <div class="progress-bar">
-                            <div class="progress" style="width: 95%"></div>
+                            <div class="progress" data-width="90%"></div>
                         </div>
                     </div>
                     <div class="skill-progress">
                         <p><span>JavaScript</span><span>85%</span></p>
                         <div class="progress-bar">
-                            <div class="progress" style="width: 85%"></div>
+                            <div class="progress" data-width="85%"></div>
                         </div>
                     </div>
                     <div class="skill-progress">
-                        <p><span>PHP</span><span>80%</span></p>
+                        <p><span>PHP/Java</span><span>85%</span></p>
                         <div class="progress-bar">
-                            <div class="progress" style="width: 80%"></div>
+                            <div class="progress" data-width="85%"></div>
                         </div>
                     </div>
                     <div class="skill-progress">
-                        <p><span>C#</span><span>75%</span></p>
+                        <p><span>C#/.NET</span><span>80%</span></p>
                         <div class="progress-bar">
-                            <div class="progress" style="width: 75%"></div>
+                            <div class="progress" data-width="80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-progress">
+                        <p><span>MySQL/SQL Server</span><span>90%</span></p>
+                        <div class="progress-bar">
+                            <div class="progress" data-width="90%"></div>
                         </div>
                     </div>
                 </div>
@@ -605,62 +704,124 @@
     <!-- Section Portfolio -->
     <section id="portfolio">
         <div class="section-title">
-            <h2>Mes Projets</h2>
+            <h2>Mes Compétences & Expériences</h2>
+        </div>
+        <div class="about-experience">
+            <h3>Expérience professionnelle</h3>
+            <div class="experience-item">
+                <h4>SOCOSIG - Analyste Programmeur (Stagiaire)</h4>
+                <p class="date">10/2024 - 02/2025</p>
+                <ul>
+                    <li>Création et maintenance d'applications logicielles avec le framework .NET</li>
+                    <li>Développement d'interfaces utilisateurs optimisées via ASP.NET Core</li>
+                    <li>Gestion et optimisation des bases de données relationnelles (SQL Server)</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h4>Unibank S.A. - Officier Maintien de base de données</h4>
+                <p class="date">04/2022 - 11/2022</p>
+                <ul>
+                    <li>Gestion des serveurs de base de données</li>
+                    <li>Exécution de requêtes SQL et assistance aux utilisateurs</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h4>Professeur de Programmation Java</h4>
+                <p class="date">Formation et Enseignement</p>
+                <ul>
+                    <li>Enseignement des fondamentaux de la programmation Java</li>
+                    <li>Élaboration de supports de cours et exercices pratiques</li>
+                    <li>Accompagnement des étudiants dans leurs projets de développement</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <h4>Formateur en Informatique Bureautique</h4>
+                <p class="date">Séminaires et Formations</p>
+                <ul>
+                    <li>Organisation et animation de séminaires sur les outils bureautiques</li>
+                    <li>Formation aux logiciels Microsoft Office (Excel, Word, PowerPoint)</li>
+                    <li>Accompagnement de professionnels dans l'optimisation de leur productivité</li>
+                </ul>
+            </div>
         </div>
         <div class="portfolio-grid">
             <div class="portfolio-item">
                 <div class="portfolio-image">
-                    <img src="/api/placeholder/400/300" alt="Projet 1">
+                    <img src="images/dba.png" alt="Compétence Base de données">
                 </div>
                 <div class="portfolio-overlay">
-                    <h3>Site E-commerce</h3>
-                    <a href="#" class="btn-small">Voir le projet</a>
+                    <h3>Base de données</h3>
+                    <p>MySQL, Oracle, PostgreSQL, SQL Server</p>
                 </div>
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-image">
-                    <img src="/api/placeholder/400/300" alt="Projet 2">
+                    <img src="images/programming.jpg" alt="Programmation">
                 </div>
                 <div class="portfolio-overlay">
-                    <h3>Application Mobile</h3>
-                    <a href="#" class="btn-small">Voir le projet</a>
+                    <h3>Développement</h3>
+                    <p>Java, PHP, C#, ASP.NET</p>
                 </div>
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-image">
-                    <img src="/api/placeholder/400/300" alt="Projet 3">
+                    <img src="images/web.jpg" alt="Web">
                 </div>
                 <div class="portfolio-overlay">
-                    <h3>Design d'Interface</h3>
-                    <a href="#" class="btn-small">Voir le projet</a>
+                    <h3>Web</h3>
+                    <p>HTML/CSS, JavaScript, Responsive Design</p>
                 </div>
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-image">
-                    <img src="/api/placeholder/400/300" alt="Projet 4">
+                    <img src="images/formateur.jpg" alt="Formation">
                 </div>
                 <div class="portfolio-overlay">
-                    <h3>Site Vitrine</h3>
-                    <a href="#" class="btn-small">Voir le projet</a>
+                    <h3>Formation</h3>
+                    <p>Enseignement Java, Séminaires bureautique</p>
                 </div>
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-image">
-                    <img src="/api/placeholder/400/300" alt="Projet 5">
+                    <img src="images/certification.png" alt="Certifications">
                 </div>
                 <div class="portfolio-overlay">
-                    <h3>Plateforme SaaS</h3>
-                    <a href="#" class="btn-small">Voir le projet</a>
+                    <h3>Certifications</h3>
+                    <p>SQL, Excel, Base de données relationnelles</p>
                 </div>
             </div>
             <div class="portfolio-item">
                 <div class="portfolio-image">
-                    <img src="/api/placeholder/400/300" alt="Projet 6">
+                    <img src="images/systeme.png" alt="Système">
                 </div>
                 <div class="portfolio-overlay">
-                    <h3>Blog Personnel</h3>
-                    <a href="#" class="btn-small">Voir le projet</a>
+                    <h3>Systèmes</h3>
+                    <p>Windows Server, Linux</p>
                 </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section Documents -->
+    <section id="documents">
+        <div class="section-title">
+            <h2>Mes Documents</h2>
+        </div>
+        <div class="documents-container">
+            <div class="document-item">
+                <i class="fas fa-file-pdf"></i>
+                <h3>Curriculum Vitae</h3>
+                <a href="files/rdangercv-25.pdf" onclick="Swal.fire('Document non disponible', 'Le CV sera bientôt disponible au téléchargement.', 'info')" class="btn btn-primary">Télécharger</a>
+            </div>
+            <div class="document-item">
+                <i class="fas fa-file-alt"></i>
+                <h3>Lettre de Motivation</h3>
+                <a href="files/Renil-Danger-Lettre-Motivation-25.pdf" onclick="Swal.fire('Document non disponible', 'La lettre de motivation sera bientôt disponible au téléchargement.', 'info')" class="btn btn-primary">Télécharger</a>
+            </div>
+            <div class="document-item">
+                <i class="fas fa-certificate"></i>
+                <h3>Certificats</h3>
+                <a href="files/R_Danger_certificate.pdf" onclick="Swal.fire('Document non disponible', 'Les certificats seront bientôt disponibles au téléchargement.', 'info')" class="btn btn-primary">Télécharger</a>
             </div>
         </div>
     </section>
@@ -673,22 +834,23 @@
         <div class="contact-form">
             <form id="contactForm">
                 <div class="form-group">
-                    <label for="name">Nom</label>
-                    <input type="text" id="name" class="form-control" required>
+                    <label for="name-input">Nom</label>
+                    <input type="text" id="name-input" name="from_name" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" required>
+                    <input type="email" id="email" name="from_email" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="subject">Sujet</label>
-                    <input type="text" id="subject" class="form-control" required>
+                    <input type="text" id="subject" name="subject" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="message">Message</label>
-                    <textarea id="message" class="form-control" required></textarea>
+                    <textarea id="message" name="message" class="form-control" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Envoyer</button>
+                <div id="form-status"></div>
             </form>
         </div>
     </section>
@@ -696,21 +858,31 @@
     <!-- Footer -->
     <footer>
         <div class="social-links">
-            <a href="#"><i class="fab fa-linkedin">LinkedIn</i></a>
-            <a href="#"><i class="fab fa-github">GitHub</i></a>
-            <a href="#"><i class="fab fa-twitter">Twitter</i></a>
-            <a href="#"><i class="fab fa-instagram">Instagram</i></a>
+            <a href="https://www.linkedin.com/in/renil-danger-7bb03a125" aria-label="LinkedIn" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/rdanger2991" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://x.com/RenilDanger" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/dantheking92?igsh=dXhrajAzaGh6ZXRo" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="footer-contact">
+            <p><i class="fas fa-envelope"></i> rdanger2991@gmail.com</p>
+            <p><i class="fas fa-phone"></i> +509 38697432</p>
         </div>
         <p class="copyright">&copy; 2025 - Tous droits réservés</p>
     </footer>
     
     <!-- Bouton pour changer de thème -->
-    <div class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon">🌙</i>
+    <div class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
+        <i class="fas fa-moon"></i>
     </div>
     
     <!-- JavaScript -->
     <script>
+        // Initialisation d'EmailJS
+        (function() {
+            // Remplacez "YOUR_PUBLIC_KEY" par votre clé publique EmailJS
+            emailjs.init("YQpjIW0ZK6TGiuzWN");
+        })();
+    
         // Navigation mobile
         const navSlide = () => {
             const burger = document.querySelector('.burger');
@@ -747,7 +919,7 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const progressBar = entry.target;
-                        const width = progressBar.style.width;
+                        const width = progressBar.getAttribute('data-width');
                         progressBar.style.width = '0';
                         setTimeout(() => {
                             progressBar.style.width = width;
@@ -798,7 +970,7 @@
             const isDarkMode = localStorage.getItem('darkMode') === 'true';
             if (isDarkMode) {
                 body.classList.add('dark-mode');
-                themeToggleBtn.innerHTML = '<i class="fas fa-sun">☀️</i>';
+                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
             }
 
             themeToggleBtn.addEventListener('click', () => {
@@ -806,36 +978,64 @@
 
                 if (body.classList.contains('dark-mode')) {
                     localStorage.setItem('darkMode', 'true');
-                    themeToggleBtn.innerHTML = '<i class="fas fa-sun">☀️</i>';
+                    themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
                 } else {
                     localStorage.setItem('darkMode', 'false');
-                    themeToggleBtn.innerHTML = '<i class="fas fa-moon">🌙</i>';
+                    themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
                 }
             });
         }
 
-        // Formulaire de contact
+        // Formulaire de contact avec SweetAlert
         const contactForm = () => {
             const form = document.getElementById('contactForm');
 
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
 
-                // Ici, vous pourriez ajouter du code pour envoyer le formulaire via AJAX
-                // Pour l'exemple, nous allons juste simuler un envoi
+                const name = document.getElementById('name-input').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                try {
+                    // Afficher un indicateur de chargement avec SweetAlert
+                    Swal.fire({
+                        title: 'Envoi en cours...',
+                        text: 'Veuillez patienter',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
 
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
+             ;
 
-                submitBtn.textContent = 'Envoi en cours...';
-                submitBtn.disabled = true;
-
-                setTimeout(() => {
-                    alert('Message envoyé avec succès!');
-                    form.reset();
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }, 2000);
+                    // Décommentez ce code lorsque vous aurez configuré EmailJS
+                    emailjs.sendForm('service_3y3wozf', 'template_7olqzwo', form)
+                    .then(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Message envoyé!',
+                            text: 'Votre message a bien été envoyé. Je vous répondrai dès que possible.',
+                            confirmButtonColor: '#4831d4'
+                        });
+                        form.reset();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur',
+                            text: 'Un problème est survenu lors de l\'envoi. Veuillez réessayer ou me contacter directement par email.',
+                            confirmButtonColor: '#4831d4'
+                        });
+                    });
+                    
+                } catch (error) {
+                    console.error("Erreur:", error);
+                    alert("Une erreur s'est produite. Veuillez réessayer plus tard.");
+                }
             });
         }
 
